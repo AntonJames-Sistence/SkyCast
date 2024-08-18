@@ -9,7 +9,14 @@ const WeatherWidget = ({ city }) => {
   const [openTile, setOpenTile] = useState(new Date().getDay());
 
   useEffect(() => {
-    // fetchWeatherData();
+    // Save data in local storage for dev, remove later
+    const savedWeatherData = localStorage.getItem(`weatherData-${city}`);
+    if (savedWeatherData) {
+      setWeatherData(JSON.parse(savedWeatherData));
+      console.log(weatherData);
+    } else {
+    //   fetchWeatherData();
+    }
   }, [city]);
 
   const fetchWeatherData = async () => {
@@ -22,7 +29,10 @@ const WeatherWidget = ({ city }) => {
         throw new Error(`City not found: ${city}`);
       }
       const data = await res.json();
+
       console.log(data); // remove before prod
+      localStorage.setItem(`weatherData-${city}`, JSON.stringify(data)); // remove before prod
+
       setWeatherData(data);
       setError(null);
     } catch (error) {
