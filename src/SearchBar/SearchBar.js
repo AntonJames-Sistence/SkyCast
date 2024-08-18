@@ -5,7 +5,7 @@ const SearchBar = () => {
   const [city, setCity] = useState(null);
 
   return (
-    <div className="py-10 bg-blue-50 h-[100vh]">
+    <div className="mt-10">
       <form
         className="flex items-center justify-center"
         onSubmit={(e) => {
