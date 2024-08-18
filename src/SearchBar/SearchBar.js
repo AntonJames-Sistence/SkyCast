@@ -17,7 +17,7 @@ const SearchBar = () => {
         }}
       >
         <label htmlFor="city" className="font-semibold">
-          Weather Search:
+          Search City:
         </label>
         <input
           id="city"
