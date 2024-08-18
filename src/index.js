@@ -3,11 +3,18 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import SearchBar from './SearchBar/SearchBar';
+import { WeatherProvider } from './Context/WeatherContext';
+import WeatherWidget from './WeatherWidget/WeatherWidget';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <SearchBar />
+    <WeatherProvider>
+      <div className="flex flex-col">
+        <SearchBar />
+        <WeatherWidget />
+      </div>
+    </WeatherProvider>
   </React.StrictMode>
 );
 
