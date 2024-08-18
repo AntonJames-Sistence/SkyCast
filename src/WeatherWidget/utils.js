@@ -6,10 +6,13 @@ export const capFLetter = (str) => {
     .join(" ");
 };
 
-// Function to convert temperature from Kelvin to Fahrenheit
-export const KtoF = (tempKevlin) => {
-  return ((tempKevlin - 273.15) * 9) / 5 + 32;
-};
+// Function for conversion Celsius to Fahrenheit
+export const CtoF = (tempCelsius) => {
+    if (typeof tempCelsius !== 'number' || isNaN(tempCelsius)) {
+      return 'N/A'; // Handle invalid inputs
+    }
+    return (tempCelsius * 9) / 5 + 32;
+  };
 
 // Function to reflect date and time
 export const getDateAndTime = () => {

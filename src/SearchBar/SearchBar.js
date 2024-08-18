@@ -16,7 +16,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="mt-10">
+    <div className="m-10">
       <form
         className="flex items-center justify-center"
         onSubmit={handleSearch}
@@ -40,14 +40,6 @@ const SearchBar = () => {
           Submit
         </button>
       </form>
-
-      <div aria-live="polite">
-        {city && (
-          <div className="mt-10 flex justify-center">
-            <WeatherWidget />
-          </div>
-        )}
-      </div>
     </div>
   );
 };

@@ -33,9 +33,8 @@ export const WeatherProvider = ({ children }) => {
       }
       const forecastData = await forecastRes.json();
       
-      // Process the data to get daily averages or specific times (like noon) for each day
+      // Process the data to get daily averages for each day
       const dailyData = processForecastData(forecastData.list);
-      console.log(dailyData)
 
       setWeatherData(dailyData);
       setError(null);
