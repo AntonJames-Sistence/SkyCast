@@ -13,8 +13,8 @@ const App = () => {
         style={{ backgroundImage: "url('/clouds.webp')" }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="flex justify-between relative z-10 p-8 w-full">
-          <div className="w-5/7">
+        <div className="flex justify-around relative z-10 p-8 w-full">
+          <div className="w-4/6">
             <SearchBar />
             <WeatherWidget />
             <DailyDetails />

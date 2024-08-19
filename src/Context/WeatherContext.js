@@ -11,6 +11,7 @@ export const WeatherProvider = ({ children }) => {
   const [cityData, setCityData] = useState(null);
   const [otherCities, setOtherCities] = useState([]);
   const [error, setError] = useState(null);
+  const [otherCititesError, setOtherCititesError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchCityName = async (lat, lon) => {
@@ -62,7 +63,6 @@ export const WeatherProvider = ({ children }) => {
           throw new Error("Failed to fetch weather data");
         }
         const forecastData = await forecastRes.json();
-        console.log(forecastData)
 
         // Process the data to get daily averages and better structure
         const dailyData = processForecastData(forecastData.list);
@@ -89,7 +89,7 @@ export const WeatherProvider = ({ children }) => {
             `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${WEATHER_API_KEY}&units=metric`
           );
           if (!res.ok) {
-            throw new Error(`City not found: ${city}`);
+            throw new Error(`Couldn't load other cities`);
           }
           const data = await res.json();
           return {
@@ -102,8 +102,9 @@ export const WeatherProvider = ({ children }) => {
       );
 
       setOtherCities(fetchedCities);
+      setOtherCititesError(null);
     } catch (error) {
-      setError(error.message);
+      setOtherCititesError(error.message);
     }
   };
 
@@ -133,7 +134,7 @@ export const WeatherProvider = ({ children }) => {
 
   return (
     <WeatherContext.Provider
-      value={{ weatherData, cityData, otherCities, error, loading, fetchWeatherData }}
+      value={{ weatherData, cityData, otherCities, error, otherCititesError, loading, fetchWeatherData }}
     >
       {children}
     </WeatherContext.Provider>

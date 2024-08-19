@@ -2,8 +2,54 @@ import React from "react";
 import { useWeather } from "../Context/WeatherContext";
 
 const DailyDetails = () => {
-  const { cityData } = useWeather();
-  if (!cityData) return null;
+  const { cityData, loading, error } = useWeather();
+  
+  if (loading || !cityData) {
+   // Skeleton structure for shimmer effect
+    return (
+      <div>
+        <div className="text-white font-semibold text-2xl mb-4">
+          Today's Overview:
+        </div>
+        <div className="flex gap-8">
+          <div className="bg-sky-400 h-48 w-1/2 animate-pulse flex flex-col justify-between items-center p-4 rounded-3xl shadow-xl">
+            <div className="bg-sky-300 h-5 w-20 rounded-full mb-2"></div>
+            <div className="bg-sky-300 h-10 w-10 rounded-full"></div>
+            <div className="bg-sky-300 h-6 w-12 rounded-full mt-2"></div>
+          </div>
+
+          <div className="bg-sky-400 h-48 w-1/2 animate-pulse flex flex-col justify-between items-center p-4 rounded-3xl shadow-xl">
+            <div className="bg-sky-300 h-5 w-20 rounded-full mb-2"></div>
+            <div className="bg-sky-300 h-10 w-10 rounded-full"></div>
+            <div className="bg-sky-300 h-6 w-12 rounded-full mt-2"></div>
+          </div>
+
+          <div className="bg-sky-400 h-48 w-1/2 animate-pulse flex flex-col justify-between items-center p-4 rounded-3xl shadow-xl">
+            <div className="bg-sky-300 h-5 w-20 rounded-full mb-2"></div>
+            <div className="bg-sky-300 h-10 w-10 rounded-full"></div>
+            <div className="bg-sky-300 h-6 w-12 rounded-full mt-2"></div>
+          </div>
+
+          <div className="bg-sky-400 h-48 w-1/2 animate-pulse flex flex-col justify-between items-center p-4 rounded-3xl shadow-xl">
+            <div className="bg-sky-300 h-5 w-20 rounded-full mb-2"></div>
+            <div className="bg-sky-300 h-10 w-10 rounded-full"></div>
+            <div className="flex flex-col gap-1 mt-2">
+              <div className="bg-sky-300 h-4 w-24 rounded-full"></div>
+              <div className="bg-sky-300 h-4 w-24 rounded-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-red-500 font-semibold text-2xl mb-4">
+        {error}
+      </div>
+    );
+  }
 
   const { main, wind, visibility, sys } = cityData;
   const { sunrise, sunset } = sys;
