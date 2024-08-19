@@ -6,7 +6,7 @@ import { WeatherProvider } from './Context/WeatherContext';
 const App = () => {
   return (
     <WeatherProvider>
-      <div>
+      <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/clouds.webp')" }}>
         <SearchBar />
         <WeatherWidget />
       </div>
