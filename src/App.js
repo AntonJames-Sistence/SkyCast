@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar/SearchBar";
 import WeatherWidget from "./WeatherWidget/WeatherWidget";
 import { WeatherProvider } from "./Context/WeatherContext";
 import DailyDetails from "./DailyDetails/DailyDetails";
+import OtherCities from "./OtherCities/OtherCities";
 
 const App = () => {
   return (
@@ -12,10 +13,13 @@ const App = () => {
         style={{ backgroundImage: "url('/clouds.webp')" }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 p-8 w-4/5">
+        <div className="relative z-10 p-8">
+        <div className="w-4/5">
           <SearchBar />
           <WeatherWidget />
           <DailyDetails />
+        </div>
+          <OtherCities />
         </div>
       </div>
     </WeatherProvider>

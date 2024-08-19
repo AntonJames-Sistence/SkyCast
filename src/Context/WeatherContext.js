@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { processForecastData } from "../WeatherWidget/utils";
 
 const WEATHER_API_KEY = "6e629565668ca72b20a0fab058f92514";
@@ -9,6 +9,7 @@ export const useWeather = () => useContext(WeatherContext);
 export const WeatherProvider = ({ children }) => {
   const [weatherData, setWeatherData] = useState(null);
   const [cityData, setCityData] = useState(null);
+  const [otherCities, setOtherCities] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +26,7 @@ export const WeatherProvider = ({ children }) => {
           throw new Error(`City not found: ${cityName}`);
         }
         const cityData = await cityRes.json();
-        
+
         setCityData(cityData);
         lat = cityData.coord.lat;
         lon = cityData.coord.lon;
@@ -57,9 +58,41 @@ export const WeatherProvider = ({ children }) => {
     }
   };
 
+  // fetch cities for OtherCities component
+  const fetchOtherCitiesWeather = async (cities) => {
+    try {
+      const fetchedCities = await Promise.all(
+        cities.map(async (city) => {
+          const res = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${WEATHER_API_KEY}&units=metric`
+          );
+          if (!res.ok) {
+            throw new Error(`City not found: ${city}`);
+          }
+          const data = await res.json();
+          return {
+            name: data.name,
+            temperature: data.main.temp,
+            icon: `https://openweathermap.org/img/wn/${data.weather[0].icon.slice(0,2) + 'd'}.png`,
+            weatherDescription: data.weather[0].description,
+          };
+        })
+      );
+
+      setOtherCities(fetchedCities);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => {
+    const cities = ["New York", "London", "Tokyo", "Kyiv"];
+    fetchOtherCitiesWeather(cities);
+  }, []);
+
   return (
     <WeatherContext.Provider
-      value={{ weatherData, cityData, error, loading, fetchWeatherData }}
+      value={{ weatherData, cityData, otherCities, error, loading, fetchWeatherData }}
     >
       {children}
     </WeatherContext.Provider>
