@@ -13,14 +13,14 @@ const App = () => {
         style={{ backgroundImage: "url('/clouds.webp')" }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 p-8">
-        <div className="w-4/5">
-          <SearchBar />
-          <WeatherWidget />
-          <DailyDetails />
-        </div>
-          <OtherCities />
-        </div>
+        <div className="flex justify-between relative z-10 p-8 w-full">
+          <div className="w-5/7">
+            <SearchBar />
+            <WeatherWidget />
+            <DailyDetails />
+          </div>
+            <OtherCities />
+          </div>
       </div>
     </WeatherProvider>
   );

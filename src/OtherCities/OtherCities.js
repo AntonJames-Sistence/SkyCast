@@ -7,16 +7,14 @@ const OtherCities = () => {
   if (!otherCities || otherCities.length === 0) return null;
 
   return (
-    <div className="p-4">
+    <div className="p-2 w-1/6">
       <h2 className="text-2xl font-bold text-white mb-4">Other Cities</h2>
       <div className="flex flex-col gap-4">
         {otherCities.map((city, index) => (
           <div
             key={index}
-            className="p-4 flex items-center bg-blue-300 text-white rounded-3xl shadow-xl shadow-blue-300/30"
+            className="p-4 flex justify-between items-center bg-blue-300 text-white rounded-3xl shadow-xl shadow-blue-300/30"
           >
-            <div className="mr-4">
-            </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-700">
                 {city.name}
@@ -27,12 +25,14 @@ const OtherCities = () => {
               <p className="text-sm text-gray-600 capitalize">
                 {city.weatherDescription}
               </p>
-              <img
-                className="w-12 h-12"
-                src={city.icon}
-                alt={city.weatherDescription}
-              />
             </div>
+              <div>
+                <img
+                  className="w-12 h-12"
+                  src={city.icon}
+                  alt={city.weatherDescription}
+                />
+              </div>
           </div>
         ))}
       </div>
