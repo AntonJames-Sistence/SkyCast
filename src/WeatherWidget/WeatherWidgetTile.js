@@ -7,11 +7,11 @@ const WeatherWidgetTile = ({ weatherData, isOpen, onClick }) => {
     <div className="flex flex-col cursor-pointer" onClick={onClick}>
       {isOpen ? (
         <div className="flex flex-col w-80">
-          <div className="flex justify-between w-full bg-[#AECADF] p-4 rounded-t-3xl">
+          <div className="flex justify-between w-full bg-sky-500 p-4 rounded-t-3xl">
             <p>{getDateAndTime().day}</p>
             <p>{getDateAndTime().time}</p>
           </div>
-          <div className="flex flex-col bg-[#BBD7EC] p-4 rounded-b-3xl">
+          <div className="flex flex-col bg-sky-400 p-4 rounded-b-3xl">
             <div className="flex justify-between w-full">
               <p className="self-center text-4xl font-bold">
                 {CtoF(weatherData.temp).toFixed(0)} &#8457;
@@ -50,7 +50,7 @@ const WeatherWidgetTile = ({ weatherData, isOpen, onClick }) => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full h-full bg-[#1B1B1D] text-white rounded-3xl">
+        <div className="flex flex-col w-full h-full bg-blue-300 text-white rounded-3xl">
           <div className="border-b border-gray-600 w-full text-center p-4">
             {new Date(weatherData.date).toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase()}
           </div>

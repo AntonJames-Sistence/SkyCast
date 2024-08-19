@@ -8,7 +8,7 @@ const WeatherWidget = () => {
   console.log(weatherData); // remove before prod
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
+  if (error) return <div className="text-red-500 font-bold text-xl flex justify-center">{error}</div>;
   if (!weatherData) return null;
 
   const handleTileClick = (index) => {
