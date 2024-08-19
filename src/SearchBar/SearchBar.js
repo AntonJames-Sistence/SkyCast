@@ -7,7 +7,6 @@ import { capFLetter } from "../WeatherWidget/utils";
 const SearchBar = () => {
   const [city, setCity] = useState("");
   const { fetchWeatherData } = useWeather();
-  // const []
 
   const handleGeolocation = () => {
     if (navigator.geolocation) {
@@ -41,7 +40,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="p-10 flex justify-between">
+    <div className="flex justify-between pb-8">
       <div className="flex items-center text-white">
         <FiMapPin className="mr-2 text-2xl" />
         <span className="text-4xl">Forecast for&nbsp;</span>

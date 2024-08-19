@@ -15,7 +15,7 @@ const WeatherWidget = () => {
   };
 
   return (
-    <div className="flex gap-8 px-8">
+    <div className="flex gap-8 pb-8">
       {weatherData.map((daily, index) => (
         <WeatherWidgetTile
           key={index}
