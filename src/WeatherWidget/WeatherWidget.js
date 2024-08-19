@@ -22,7 +22,7 @@ const WeatherWidget = () => {
           weatherData={daily}
           isOpen={index === openTileIndex}
           onClick={() => handleTileClick(index)}
-          idx={index || 0}
+          idx={index}
         />
       ))}
     </div>

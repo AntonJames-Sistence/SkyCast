@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useWeather } from "../Context/WeatherContext";
 import { FiMapPin } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
@@ -6,30 +6,7 @@ import { capFLetter } from "../WeatherWidget/utils";
 
 const SearchBar = () => {
   const [city, setCity] = useState("");
-  const { fetchWeatherData } = useWeather();
-
-  const handleGeolocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // console.log(position.coords)
-          const { latitude, longitude } = position.coords;
-          // Fetch weather data using latitude and longitude
-          fetchWeatherData({ lat: latitude, lon: longitude });
-        },
-        (error) => {
-          console.error("Error getting geolocation:", error);
-        }
-      );
-    } else {
-      console.error("Geolocation is not supported");
-    }
-  };
-
-  // Get initial data
-  useEffect(() => {
-    handleGeolocation();
-  }, []);
+  const { fetchWeatherData, cityData } = useWeather();
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -41,10 +18,9 @@ const SearchBar = () => {
 
   return (
     <div className="flex justify-between pb-8">
-      <div className="flex items-center text-white">
+      <div className="flex items-center text-white font-bold">
         <FiMapPin className="mr-2 text-2xl" />
-        <span className="text-4xl">Forecast for&nbsp;</span>
-        <span className="text-4xl">{city ? `${capFLetter(city)}` : "Current Location"}</span>
+        <span className="text-2xl">{cityData ? `${capFLetter(cityData.name)}` : "Current Location"}</span>
       </div>
       <form
         className="flex"

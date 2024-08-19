@@ -6,7 +6,6 @@ const WeatherWidgetTile = ({ weatherData, isOpen, onClick, idx }) => {
   const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherData.weather.icon.slice(0,2) + 'd'}@2x.png`;
   const { day, time } = getDateAndTime(weatherData.date);
 
-  console.log(cityData); // remove before prod
   // If cityData is available render temperature at this momemt, else render average
   const isCityDataAvailable = idx === 0 && cityData;
   return (
@@ -64,11 +63,11 @@ const WeatherWidgetTile = ({ weatherData, isOpen, onClick, idx }) => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full h-full bg-blue-300 text-white rounded-3xl shadow-xl shadow-blue-300/30">
-          <div className="border-b border-gray-600 w-full text-center p-4 font-semibold">
+        <div className="flex flex-col w-full h-full text-white rounded-3xl shadow-xl shadow-blue-300/30">
+          <div className="bg-blue-400 border-b rounded-t-3xl border-gray-600 w-full text-center p-4 font-semibold">
             {day.slice(0, 3).toUpperCase()}
           </div>
-          <div className="flex flex-col h-full justify-between p-4">
+          <div className="bg-blue-300 rounded-b-3xl flex flex-col h-full justify-between p-4">
             <img src={weatherIconUrl} className="h-18" alt="weather icon" />
             <p className="self-center text-2xl font-bold">
               {CtoF(weatherData.temp).toFixed(0)} &#8457;

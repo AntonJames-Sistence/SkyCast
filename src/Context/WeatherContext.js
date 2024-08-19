@@ -13,10 +13,31 @@ export const WeatherProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const fetchCityName = async (lat, lon) => {
+    try {
+      const res = await fetch(
+        `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${WEATHER_API_KEY}`
+      );
+      if (!res.ok) {
+        throw new Error("Failed to fetch city name");
+      }
+      const data = await res.json();
+      return data[0].name;
+    } catch (error) {
+      console.error("Error fetching city name:", error);
+      setError("Unable to fetch city name");
+      return null;
+    }
+  };
+
   const fetchWeatherData = async ({ cityName, lat, lon }) => {
     setLoading(true);
 
     try {
+      // Required cityName for multiple components
+      if (!cityName && lat && lon) {
+        cityName = await fetchCityName(lat, lon);
+      }
       // First API call to get city weather with lat and lon
       if (cityName) {
         const cityRes = await fetch(
@@ -41,6 +62,7 @@ export const WeatherProvider = ({ children }) => {
           throw new Error("Failed to fetch weather data");
         }
         const forecastData = await forecastRes.json();
+        console.log(forecastData)
 
         // Process the data to get daily averages and better structure
         const dailyData = processForecastData(forecastData.list);
@@ -85,7 +107,26 @@ export const WeatherProvider = ({ children }) => {
     }
   };
 
+  // Get user's geolocation and call fetchWeatherData to display current location forecast
+  const fetchGeoLocationWeather = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchWeatherData({ lat: latitude, lon: longitude });
+        },
+        (error) => {
+          console.error("Error getting geolocation:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported");
+    }
+  };
+
   useEffect(() => {
+    fetchGeoLocationWeather();
+
     const cities = ["New York", "London", "Tokyo", "Kyiv"];
     fetchOtherCitiesWeather(cities);
   }, []);
