@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useWeather } from "../Context/WeatherContext";
+import { FiMapPin } from "react-icons/fi";
+import { FaSearch } from "react-icons/fa";
+import { capFLetter } from "../WeatherWidget/utils";
 
 const SearchBar = () => {
   const [city, setCity] = useState("");
   const { fetchWeatherData } = useWeather();
+  // const []
 
   const handleGeolocation = () => {
     if (navigator.geolocation) {
@@ -15,18 +19,18 @@ const SearchBar = () => {
           fetchWeatherData({ lat: latitude, lon: longitude });
         },
         (error) => {
-          console.error('Error getting geolocation:', error);
+          console.error("Error getting geolocation:", error);
         }
       );
     } else {
-      console.error('Geolocation is not supported');
+      console.error("Geolocation is not supported");
     }
   };
 
   // Get initial data
   useEffect(() => {
     handleGeolocation();
-  }, [])
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -37,25 +41,32 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="p-10">
+    <div className="p-10 flex justify-between">
+      <div className="flex items-center text-white">
+        <FiMapPin className="mr-2 text-2xl" />
+        <span className="text-4xl">Forecast for&nbsp;</span>
+        <span className="text-4xl">{city ? `${capFLetter(city)}` : "Current Location"}</span>
+      </div>
       <form
-        className="flex items-center justify-center"
+        className="flex"
         onSubmit={handleSearch}
+        aria-label="City Search Bar"
       >
-        <label htmlFor="city" className="font-semibold text-white">
-          Search City:
-        </label>
+        <span className="flex items-center p-2 text-gray-400 rounded-l-lg bg-white">
+          <FaSearch />
+        </span>
         <input
           id="city"
           data-testid="weather-input"
-          className="ml-2 border p-1.5 border-gray-200 rounded-l-lg"
+          className="pl-2 p-0.5"
           type="text"
           name="city"
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          placeholder="Search City"
         />
         <button
-          className="text-sm border rounded-r-lg p-2 uppercase font-bold text-white bg-blue-500"
+          className="text-sm border rounded-r-lg p-1 uppercase font-bold text-white bg-sky-500"
           type="submit"
         >
           Search
