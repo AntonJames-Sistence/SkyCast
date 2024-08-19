@@ -25,7 +25,7 @@ export const KtoF = (tempKelvin) => {
 // Function to reflect date and time
 export const getDateAndTime = (dateString) => {
   // Parse the date string to get the correct day
-  const date = new Date(dateString);
+  const date = new Date(dateString + 'T00:00:00');
   const dayOptions = { weekday: "long" };
   const day = date.toLocaleDateString("en-US", dayOptions);
 
