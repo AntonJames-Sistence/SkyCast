@@ -14,6 +14,14 @@ export const CtoF = (tempCelsius) => {
   return (tempCelsius * 9) / 5 + 32;
 };
 
+// Function for conversion Kelvins to Fahrenheit
+export const KtoF = (tempKelvin) => {
+  if (typeof tempKelvin !== "number" || isNaN(tempKelvin)) {
+    return "N/A";
+  }
+  return ((tempKelvin - 273.15) * 9) / 5 + 32;
+};
+
 // Function to reflect date and time
 export const getDateAndTime = (dateString) => {
   // Parse the date string to get the correct day

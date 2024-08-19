@@ -5,7 +5,6 @@ import { useWeather } from "../Context/WeatherContext";
 const WeatherWidget = () => {
   const { weatherData, error, loading } = useWeather();
   const [openTileIndex, setOpenTileIndex] = useState(0);
-  // console.log(weatherData); // remove before prod
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="text-red-500 font-bold text-xl flex justify-center">{error}</div>;
@@ -23,6 +22,7 @@ const WeatherWidget = () => {
           weatherData={daily}
           isOpen={index === openTileIndex}
           onClick={() => handleTileClick(index)}
+          idx={index || 0}
         />
       ))}
     </div>

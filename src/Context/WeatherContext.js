@@ -8,7 +8,7 @@ export const useWeather = () => useContext(WeatherContext);
 
 export const WeatherProvider = ({ children }) => {
   const [weatherData, setWeatherData] = useState(null);
-  // const [cityData, setCityData] = useState(null);
+  const [cityData, setCityData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +25,8 @@ export const WeatherProvider = ({ children }) => {
           throw new Error(`City not found: ${cityName}`);
         }
         const cityData = await cityRes.json();
-        console.log(cityData)
+        
+        setCityData(cityData);
         lat = cityData.coord.lat;
         lon = cityData.coord.lon;
       }
@@ -58,7 +59,7 @@ export const WeatherProvider = ({ children }) => {
 
   return (
     <WeatherContext.Provider
-      value={{ weatherData, error, loading, fetchWeatherData }}
+      value={{ weatherData, cityData, error, loading, fetchWeatherData }}
     >
       {children}
     </WeatherContext.Provider>

@@ -1,22 +1,28 @@
-import { CtoF, getDateAndTime } from "./utils";
+import { useWeather } from "../Context/WeatherContext";
+import { CtoF, getDateAndTime, KtoF } from "./utils";
 
-const WeatherWidgetTile = ({ weatherData, isOpen, onClick }) => {
+const WeatherWidgetTile = ({ weatherData, isOpen, onClick, idx }) => {
+  const { cityData } = useWeather();
   const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherData.weather.icon.slice(0,2) + 'd'}@2x.png`;
   const { day, time } = getDateAndTime(weatherData.date);
 
-    console.log(CtoF(301.68))
+  console.log(cityData); // remove before prod
+  // If cityData is available render temperature at this momemt, else render average
+  const isCityDataAvailable = idx === 0 && cityData;
   return (
     <div className="flex flex-col cursor-pointer" onClick={onClick}>
       {isOpen ? (
         <div className="flex flex-col w-80">
           <div className="flex justify-between w-full bg-sky-500 p-4 rounded-t-3xl font-semibold">
             <p>{day}</p>
-            <p>{time}</p>
+            <p>{isCityDataAvailable ? time : ''}</p>
           </div>
           <div className="flex flex-col bg-sky-400 p-4 rounded-b-3xl">
             <div className="flex justify-between w-full">
               <p className="self-center text-4xl font-bold">
-                {CtoF(weatherData.temp).toFixed(0)} &#8457;
+              {isCityDataAvailable 
+                  ? KtoF(cityData.main.temp).toFixed(0) 
+                  : CtoF(weatherData.temp).toFixed(0)}  &#8457;
               </p>
               <img src={weatherIconUrl} className="h-18" alt="weather icon" />
             </div>
@@ -25,13 +31,17 @@ const WeatherWidgetTile = ({ weatherData, isOpen, onClick }) => {
               <div className="">
                 <span className="text-gray-600">Feels Like: </span>
                 <span>
-                  {CtoF(weatherData.feels_like).toFixed(0)} &#8457;
+                {isCityDataAvailable 
+                    ? KtoF(cityData.main.feels_like).toFixed(0) 
+                    : CtoF(weatherData.feels_like).toFixed(0)}  &#8457;
                 </span>
               </div>
               <div>
                 <span className="text-gray-600">Temp Max: </span>
                 <span>
-                  {CtoF(weatherData.temp_max).toFixed(0)} &#8457;
+                {isCityDataAvailable 
+                    ? KtoF(cityData.main.temp_max).toFixed(0) 
+                    : CtoF(weatherData.temp_max).toFixed(0)}  &#8457;
                 </span>
               </div>
               <div>
@@ -41,7 +51,9 @@ const WeatherWidgetTile = ({ weatherData, isOpen, onClick }) => {
               <div>
                 <span className="text-gray-600">Temp Min: </span>
                 <span>
-                  {CtoF(weatherData.temp_min).toFixed(0)} &#8457;
+                {isCityDataAvailable 
+                    ? KtoF(cityData.main.temp_min).toFixed(0) 
+                    : CtoF(weatherData.temp_min).toFixed(0)}  &#8457;
                 </span>
               </div>
               <div>
