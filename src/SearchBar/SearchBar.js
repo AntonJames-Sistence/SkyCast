@@ -58,7 +58,7 @@ const SearchBar = () => {
           className="text-sm border rounded-r-lg p-2 uppercase font-bold text-white bg-blue-500"
           type="submit"
         >
-          Submit
+          Search
         </button>
       </form>
     </div>

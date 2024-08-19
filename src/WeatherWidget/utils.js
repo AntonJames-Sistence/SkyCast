@@ -15,15 +15,18 @@ export const CtoF = (tempCelsius) => {
 };
 
 // Function to reflect date and time
-export const getDateAndTime = () => {
-  const now = new Date();
+export const getDateAndTime = (dateString) => {
+  // Parse the date string to get the correct day
+  const date = new Date(dateString);
   const dayOptions = { weekday: "long" };
-  const timeOptions = { hour: "numeric", minute: "numeric", hour12: true };
+  const day = date.toLocaleDateString("en-US", dayOptions);
 
-  const day = now.toLocaleDateString("en-US", dayOptions);
-  const time = now.toLocaleTimeString("en-US", timeOptions);
+  // Get the current time from the machine, can be improved in the future, but it is not required right now
+  const now = new Date();
+  const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+  const currentTime = now.toLocaleTimeString("en-US", timeOptions);
 
-  return { day, time };
+  return { day, time: currentTime };
 };
 
 // Function to process the data from second call to OpenWeather

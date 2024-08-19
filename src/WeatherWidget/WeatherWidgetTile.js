@@ -2,14 +2,16 @@ import { CtoF, getDateAndTime } from "./utils";
 
 const WeatherWidgetTile = ({ weatherData, isOpen, onClick }) => {
   const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherData.weather.icon.slice(0,2) + 'd'}@2x.png`;
+  const { day, time } = getDateAndTime(weatherData.date);
 
+    console.log(CtoF(301.68))
   return (
     <div className="flex flex-col cursor-pointer" onClick={onClick}>
       {isOpen ? (
         <div className="flex flex-col w-80">
-          <div className="flex justify-between w-full bg-sky-500 p-4 rounded-t-3xl">
-            <p>{getDateAndTime().day}</p>
-            <p>{getDateAndTime().time}</p>
+          <div className="flex justify-between w-full bg-sky-500 p-4 rounded-t-3xl font-semibold">
+            <p>{day}</p>
+            <p>{time}</p>
           </div>
           <div className="flex flex-col bg-sky-400 p-4 rounded-b-3xl">
             <div className="flex justify-between w-full">
@@ -51,7 +53,7 @@ const WeatherWidgetTile = ({ weatherData, isOpen, onClick }) => {
         </div>
       ) : (
         <div className="flex flex-col w-full h-full bg-blue-300 text-white rounded-3xl">
-          <div className="border-b border-gray-600 w-full text-center p-4">
+          <div className="border-b border-gray-600 w-full text-center p-4 font-semibold">
             {new Date(weatherData.date).toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase()}
           </div>
           <div className="flex flex-col h-full justify-between p-4">

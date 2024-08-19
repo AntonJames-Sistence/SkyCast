@@ -1,12 +1,14 @@
 import React, { createContext, useContext, useState } from "react";
 import { processForecastData } from "../WeatherWidget/utils";
 
-const WEATHER_API_KEY = "2152de8ca0fcc349444eabd7c3670f68";
+const WEATHER_API_KEY = "6e629565668ca72b20a0fab058f92514";
+// const WEATHER_API_KEY_FALLBACK = "1471e21c9d98348c865b24720ab83b77";
 const WeatherContext = createContext();
 export const useWeather = () => useContext(WeatherContext);
 
 export const WeatherProvider = ({ children }) => {
   const [weatherData, setWeatherData] = useState(null);
+  // const [cityData, setCityData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -23,6 +25,7 @@ export const WeatherProvider = ({ children }) => {
           throw new Error(`City not found: ${cityName}`);
         }
         const cityData = await cityRes.json();
+        console.log(cityData)
         lat = cityData.coord.lat;
         lon = cityData.coord.lon;
       }
