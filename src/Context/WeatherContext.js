@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { processForecastData } from "../WeatherWidget/utils";
 
-const WEATHER_API_KEY = "6e629565668ca72b20a0fab058f92514";
-// const WEATHER_API_KEY_FALLBACK = "1471e21c9d98348c865b24720ab83b77";
+const WEATHER_API_KEY = "1471e21c9d98348c865b24720ab83b77";
+// const WEATHER_API_KEY_FALLBACK = "6e629565668ca72b20a0fab058f92514";
 const WeatherContext = createContext();
 export const useWeather = () => useContext(WeatherContext);
 
@@ -45,7 +45,7 @@ export const WeatherProvider = ({ children }) => {
           `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${WEATHER_API_KEY}`
         );
         if (!cityRes.ok) {
-          throw new Error(`City not found: ${cityName}`);
+          throw new Error(`Place not found: ${cityName}`);
         }
         const cityData = await cityRes.json();
 
@@ -70,7 +70,7 @@ export const WeatherProvider = ({ children }) => {
         setWeatherData(dailyData);
         setError(null);
       } else {
-        throw new Error("City not found");
+        throw new Error("Place not found");
       }
     } catch (error) {
       setError(error.message);

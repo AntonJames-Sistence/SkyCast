@@ -64,5 +64,5 @@ test("renders error message if city doesnt exist", async () => {
   fireEvent.change(input, { target: { value: "Mars 3" } });
   fireEvent.click(button);
 
-    await waitFor(() => expect(screen.getByText("City not found: Mars 3")).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText("Place not found: Mars 3")).toBeInTheDocument());
 });
