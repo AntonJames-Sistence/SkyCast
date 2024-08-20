@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { processForecastData } from "../WeatherWidget/utils";
 
-const WEATHER_API_KEY = "1471e21c9d98348c865b24720ab83b77";
-// const WEATHER_API_KEY_FALLBACK = "6e629565668ca72b20a0fab058f92514";
+const WEATHER_API_KEY = "6e629565668ca72b20a0fab058f92514";
+// const WEATHER_API_KEY_FALLBACK = "1471e21c9d98348c865b24720ab83b77";
 const WeatherContext = createContext();
 export const useWeather = () => useContext(WeatherContext);
 

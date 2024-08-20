@@ -3,7 +3,18 @@ import { useWeather } from "../Context/WeatherContext";
 import { CtoF } from "../WeatherWidget/utils";
 
 const OtherCities = () => {
-  const { otherCities, loading, otherCitiesError } = useWeather();
+  const { otherCities, loading, otherCitiesError, fetchWeatherData } =
+    useWeather();
+
+  const handleFetchForecast = (cityName) => {
+    fetchWeatherData({ cityName });
+  };
+
+  const handleKeyDown = (event, cityName) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      handleFetchForecast(cityName);
+    }
+  };
 
   if (otherCitiesError) {
     return (
@@ -27,11 +38,23 @@ const OtherCities = () => {
               aria-label="Loading weather data"
             >
               <div>
-                <div className="bg-blue-200 h-5 w-24 rounded-full mb-2" aria-hidden="true"></div>
-                <div className="bg-blue-200 h-6 w-16 rounded-full mb-1" aria-hidden="true"></div>
-                <div className="bg-blue-200 h-4 w-20 rounded-full" aria-hidden="true"></div>
+                <div
+                  className="bg-blue-200 h-5 w-24 rounded-full mb-2"
+                  aria-hidden="true"
+                ></div>
+                <div
+                  className="bg-blue-200 h-6 w-16 rounded-full mb-1"
+                  aria-hidden="true"
+                ></div>
+                <div
+                  className="bg-blue-200 h-4 w-20 rounded-full"
+                  aria-hidden="true"
+                ></div>
               </div>
-              <div className="bg-blue-200 w-12 h-12 rounded-full" aria-hidden="true"></div>
+              <div
+                className="bg-blue-200 w-12 h-12 rounded-full"
+                aria-hidden="true"
+              ></div>
             </div>
           ))}
         </div>
@@ -46,29 +69,39 @@ const OtherCities = () => {
         {otherCities.map((city, index) => (
           <article
             key={index}
-            className="p-4 flex justify-between items-center bg-blue-300 text-white rounded-3xl shadow-xl shadow-blue-300/30"
+            className="p-4 flex justify-between items-center bg-blue-300 text-white rounded-3xl shadow-xl shadow-blue-300/30 hover:shadow-blue-300/60"
             aria-label={`Weather in ${city.name}`}
-            role="region"
+            onClick={() => handleFetchForecast(city.name)}
+                onKeyDown={(event) => handleKeyDown(event, city.name)}
+                role="button"
+                tabIndex="0"
+                aria-pressed="false"
           >
             <div>
-              <h3 className="text-lg font-semibold text-gray-700" id={`city-name-${index}`}>
+              <h3
+                className="text-lg font-semibold text-gray-700 cursor-pointer"
+                id={`city-name-${index}`}
+              >
                 {city.name}
               </h3>
-              <p className="text-xl font-bold text-gray-800" aria-labelledby={`city-name-${index}`}>
+              <p
+                className="text-xl font-bold text-gray-800"
+                aria-labelledby={`city-name-${index}`}
+              >
                 {CtoF(city.temperature).toFixed(0)}&#8457;
               </p>
               <p className="text-sm text-gray-600 capitalize">
                 {city.weatherDescription}
               </p>
             </div>
-              <div>
-                <img
-                  className="w-12 h-12"
-                  src={city.icon}
-                  alt={`${city.weatherDescription} in ${city.name}`}
-                  aria-hidden="true"
-                />
-              </div>
+            <div>
+              <img
+                className="w-12 h-12"
+                src={city.icon}
+                alt={`${city.weatherDescription} in ${city.name}`}
+                aria-hidden="true"
+              />
+            </div>
           </article>
         ))}
       </div>
