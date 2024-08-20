@@ -8,12 +8,21 @@ const WeatherWidgetTile = ({ weatherData, isOpen, onClick, idx }) => {
   }@2x.png`;
   const { day, time } = getDateAndTime(weatherData.date);
 
+  // Keyboard accessablity
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onClick();
+    }
+  };
+
   // If cityData is available render temperature at this momemt, else render average
   const isCityDataAvailable = idx === 0 && cityData;
   return (
     <div
       className="flex flex-col cursor-pointer"
       onClick={onClick}
+      onKeyDown={handleKeyDown}
       role="button"
       aria-expanded={isOpen}
       tabIndex="0"
