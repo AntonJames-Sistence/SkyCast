@@ -11,7 +11,7 @@ export const WeatherProvider = ({ children }) => {
   const [cityData, setCityData] = useState(null);
   const [otherCities, setOtherCities] = useState([]);
   const [error, setError] = useState(null);
-  const [otherCititesError, setOtherCititesError] = useState(null);
+  const [otherCitiesError, setOtherCitiesError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchCityName = async (lat, lon) => {
@@ -89,7 +89,7 @@ export const WeatherProvider = ({ children }) => {
             `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${WEATHER_API_KEY}&units=metric`
           );
           if (!res.ok) {
-            throw new Error(`Couldn't load other cities`);
+            throw new Error(`Couldn't load other cities, please try to refresh the page.`);
           }
           const data = await res.json();
           return {
@@ -102,9 +102,9 @@ export const WeatherProvider = ({ children }) => {
       );
 
       setOtherCities(fetchedCities);
-      setOtherCititesError(null);
+      setOtherCitiesError(null);
     } catch (error) {
-      setOtherCititesError(error.message);
+      setOtherCitiesError(error.message);
     }
   };
 
@@ -134,7 +134,7 @@ export const WeatherProvider = ({ children }) => {
 
   return (
     <WeatherContext.Provider
-      value={{ weatherData, cityData, otherCities, error, otherCititesError, loading, fetchWeatherData }}
+      value={{ weatherData, cityData, otherCities, error, otherCitiesError, loading, fetchWeatherData }}
     >
       {children}
     </WeatherContext.Provider>

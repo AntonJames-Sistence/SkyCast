@@ -12,13 +12,14 @@ const WeatherWidget = () => {
 
   if (error) {
     return (
-      <div className="text-red-500 font-bold text-xl flex justify-center">
+      <div className="text-red-500 h-full flex flex-col text-center justify-center font-bold text-xl flex justify-center">
         {error}
       </div>
     );
   }
 
   if (loading || !weatherData) {
+    // Skeleton structure for shimmer effect while loading
     return (
       <div className="flex gap-8 pb-8 justify-between">
         {[...Array(5)].map((_, index) => (

@@ -3,37 +3,38 @@ import { useWeather } from "../Context/WeatherContext";
 import { CtoF } from "../WeatherWidget/utils";
 
 const OtherCities = () => {
-  const { otherCities, loading, otherCititesError } = useWeather();
+  const { otherCities, loading, otherCitiesError } = useWeather();
 
-  if (loading || !otherCities || otherCities.length === 0) {
+  if (otherCitiesError) {
     return (
       <div className="p-2 w-1/6">
         <h2 className="text-2xl font-bold text-white mb-4">Other Cities</h2>
-        <div className="flex flex-col gap-4">
-          {/* Skeleton for Other Cities */}
-          {[...Array(4)].map((_, index) => (
-            <div
-              key={index}
-              className="p-4 flex justify-between items-center bg-blue-300 animate-pulse rounded-3xl shadow-xl"
-            >
-              <div>
-                <div className="bg-blue-200 h-5 w-24 rounded-full mb-2"></div>
-                <div className="bg-blue-200 h-6 w-16 rounded-full mb-1"></div>
-                <div className="bg-blue-200 h-4 w-20 rounded-full"></div>
-              </div>
-              <div className="bg-blue-200 w-12 h-12 rounded-full"></div>
-            </div>
-          ))}
-        </div>
+        <p className="text-red-500 font-semibold text-xl">{otherCitiesError}</p>
       </div>
     );
   }
 
-  if (otherCititesError) {
+  if (loading || !otherCities || otherCities.length === 0) {
+    // Skeleton structure for shimmer effect while loading
     return (
-      <div className="p-2 w-1/6">
+      <div className="p-2 w-1/6" role="status" aria-live="polite">
         <h2 className="text-2xl font-bold text-white mb-4">Other Cities</h2>
-        <p className="text-red-500">{otherCititesError}</p>
+        <div className="flex flex-col gap-4">
+          {[...Array(4)].map((_, index) => (
+            <div
+              key={index}
+              className="p-4 flex justify-between items-center bg-blue-300 animate-pulse rounded-3xl shadow-xl"
+              aria-label="Loading weather data"
+            >
+              <div>
+                <div className="bg-blue-200 h-5 w-24 rounded-full mb-2" aria-hidden="true"></div>
+                <div className="bg-blue-200 h-6 w-16 rounded-full mb-1" aria-hidden="true"></div>
+                <div className="bg-blue-200 h-4 w-20 rounded-full" aria-hidden="true"></div>
+              </div>
+              <div className="bg-blue-200 w-12 h-12 rounded-full" aria-hidden="true"></div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

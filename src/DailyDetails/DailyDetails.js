@@ -5,7 +5,7 @@ const DailyDetails = () => {
   const { cityData, loading, error } = useWeather();
   
   if (loading || !cityData) {
-   // Skeleton structure for shimmer effect
+   // Skeleton structure for shimmer effect while loading
     return (
       <div>
         <div className="text-white font-semibold text-2xl mb-4">
@@ -43,13 +43,9 @@ const DailyDetails = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="text-red-500 font-semibold text-2xl mb-4">
-        {error}
-      </div>
-    );
-  }
+  // error is handled by main component
+  if (error) return null
+  
 
   const { main, wind, visibility, sys } = cityData;
   const { sunrise, sunset } = sys;
