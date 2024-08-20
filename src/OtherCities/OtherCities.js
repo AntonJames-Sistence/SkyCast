@@ -1,13 +1,13 @@
 import React from "react";
 import { useWeather } from "../Context/WeatherContext";
-import { CtoF } from "../WeatherWidget/utils";
+import { CtoF, debounce } from "../WeatherWidget/utils";
 
 const OtherCities = () => {
   const { otherCities, loading, otherCitiesError, fetchWeatherData } =
     useWeather();
 
   const handleFetchForecast = (cityName) => {
-    fetchWeatherData({ cityName });
+    debounce(fetchWeatherData({ cityName }))
   };
 
   const handleKeyDown = (event, cityName) => {

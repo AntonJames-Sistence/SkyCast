@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { processForecastData } from "../WeatherWidget/utils";
+import { debounce, processForecastData } from "../WeatherWidget/utils";
 
 const WEATHER_API_KEY = "2152de8ca0fcc349444eabd7c3670f68";
 // const WEATHER_API_KEY_FALLBACK = "6e629565668ca72b20a0fab058f92514";
@@ -33,7 +33,7 @@ export const WeatherProvider = ({ children }) => {
 
   const fetchWeatherData = async ({ cityName, lat, lon }) => {
     setLoading(true);
-
+    console.log('fetching')
     try {
       // Required cityName for multiple components
       if (!cityName && lat && lon) {
@@ -118,7 +118,7 @@ export const WeatherProvider = ({ children }) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          fetchWeatherData({ lat: latitude, lon: longitude });
+          debounce(fetchWeatherData({ lat: latitude, lon: longitude }));
         },
         (error) => {
           console.error("Error getting geolocation:", error);
@@ -130,10 +130,10 @@ export const WeatherProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchGeoLocationWeather();
+    debounce(fetchGeoLocationWeather())
 
     const cities = ["New York", "London", "Tokyo", "Kyiv"];
-    fetchOtherCitiesWeather(cities);
+    debounce(fetchOtherCitiesWeather(cities));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { useWeather } from "../Context/WeatherContext";
 import { FiMapPin } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
-import { capFLetter } from "../WeatherWidget/utils";
+import { capFLetter, debounce } from "../WeatherWidget/utils";
 
 const SearchBar = () => {
   const [city, setCity] = useState("");
   const { fetchWeatherData, cityData } = useWeather();
 
+  const debouncedFetchWeatherData = debounce(({ cityName }) => fetchWeatherData({ cityName }), 200);
+
   const handleSearch = (e) => {
     e.preventDefault();
 
     if (city) {
-      fetchWeatherData({ cityName: city });
+      debouncedFetchWeatherData({ cityName: city });
     }
   };
 
