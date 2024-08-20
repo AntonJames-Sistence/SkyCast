@@ -17,7 +17,7 @@ const OtherCities = () => {
   if (loading || !otherCities || otherCities.length === 0) {
     // Skeleton structure for shimmer effect while loading
     return (
-      <section className="p-2 lg:w-1/6" role="status" aria-live="polite">
+      <section className="p-2 w-3/4 lg:w-1/6" role="status" aria-live="polite">
         <h2 className="text-2xl font-bold text-white mb-4">Other Cities:</h2>
         <div className="flex flex-col gap-4">
           {[...Array(4)].map((_, index) => (

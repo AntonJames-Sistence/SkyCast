@@ -17,7 +17,7 @@ const DailyDetails = () => {
         >
           Today's Overview:
         </h2>
-        <div className="flex gap-8">
+        <div className="flex flex-col md:flex-row gap-8">
           {[...Array(4)].map((_, index) => (
             <div
               key={index}
@@ -48,7 +48,7 @@ const DailyDetails = () => {
   };
 
   return (
-    <section className="flex flex-col" aria-labelledby="overview-title">
+    <section className="flex flex-col md:overflow-x-auto" aria-labelledby="overview-title">
       <h2
         id="overview-title"
         className="text-white font-semibold text-2xl mb-4"
