@@ -47,12 +47,14 @@ const OtherCities = () => {
           <div
             key={index}
             className="p-4 flex justify-between items-center bg-blue-300 text-white rounded-3xl shadow-xl shadow-blue-300/30"
+            aria-label={`Weather in ${city.name}`}
+            role="region"
           >
             <div>
-              <h3 className="text-lg font-semibold text-gray-700">
+              <h3 className="text-lg font-semibold text-gray-700" id={`city-name-${index}`}>
                 {city.name}
               </h3>
-              <p className="text-xl font-bold text-gray-800">
+              <p className="text-xl font-bold text-gray-800" aria-labelledby={`city-name-${index}`}>
                 {CtoF(city.temperature).toFixed(0)}&#8457;
               </p>
               <p className="text-sm text-gray-600 capitalize">
@@ -63,7 +65,8 @@ const OtherCities = () => {
                 <img
                   className="w-12 h-12"
                   src={city.icon}
-                  alt={city.weatherDescription}
+                  alt={`${city.weatherDescription} in ${city.name}`}
+                  aria-hidden="true"
                 />
               </div>
           </div>

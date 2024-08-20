@@ -89,13 +89,17 @@ export const WeatherProvider = ({ children }) => {
             `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${WEATHER_API_KEY}&units=metric`
           );
           if (!res.ok) {
-            throw new Error(`Couldn't load other cities, please try to refresh the page.`);
+            throw new Error(
+              `Couldn't load other cities, please try to refresh the page.`
+            );
           }
           const data = await res.json();
           return {
             name: data.name,
             temperature: data.main.temp,
-            icon: `https://openweathermap.org/img/wn/${data.weather[0].icon.slice(0,2) + 'd'}.png`,
+            icon: `https://openweathermap.org/img/wn/${
+              data.weather[0].icon.slice(0, 2) + "d"
+            }.png`,
             weatherDescription: data.weather[0].description,
           };
         })
@@ -134,7 +138,15 @@ export const WeatherProvider = ({ children }) => {
 
   return (
     <WeatherContext.Provider
-      value={{ weatherData, cityData, otherCities, error, otherCitiesError, loading, fetchWeatherData }}
+      value={{
+        weatherData,
+        cityData,
+        otherCities,
+        error,
+        otherCitiesError,
+        loading,
+        fetchWeatherData,
+      }}
     >
       {children}
     </WeatherContext.Provider>
