@@ -48,17 +48,17 @@ const DailyDetails = () => {
   };
 
   return (
-    <section aria-labelledby="overview-title">
+    <section className="flex flex-col" aria-labelledby="overview-title">
       <h2
         id="overview-title"
         className="text-white font-semibold text-2xl mb-4"
       >
         Today's Overview:
       </h2>
-      <div className="flex gap-8">
+      <div className="flex flex-col w-2/3 md:w-full self-center md:self-start md:flex-row gap-8">
         {/* Humidity */}
         <article
-          className="bg-sky-500 h-48 w-1/2 flex flex-col justify-between items-center text-white p-4 rounded-3xl shadow-xl shadow-blue-500/30"
+          className="bg-sky-500 md:h-48 md:w-1/2 flex flex-col justify-between items-center text-white p-4 rounded-3xl shadow-xl shadow-blue-500/30"
           aria-labelledby="humidity-title"
         >
           <h3 id="humidity-title" className="text-lg font-semibold mb-2">
@@ -70,7 +70,7 @@ const DailyDetails = () => {
 
         {/* Wind Status */}
         <article
-          className="bg-sky-500 w-1/2 flex flex-col justify-between items-center text-white p-4 rounded-3xl shadow-xl shadow-blue-500/30"
+          className="bg-sky-500 md:h-48 md:w-1/2 flex flex-col justify-between items-center text-white p-4 rounded-3xl shadow-xl shadow-blue-500/30"
           aria-labelledby="wind-title"
         >
           <h3 id="wind-title" className="text-lg font-semibold mb-2">
@@ -82,7 +82,7 @@ const DailyDetails = () => {
 
         {/* Visibility */}
         <article
-          className="bg-sky-500 w-1/2 flex flex-col justify-between items-center text-white p-4 rounded-3xl shadow-xl shadow-blue-500/30"
+          className="bg-sky-500 md:h-48 md:w-1/2 flex flex-col justify-between items-center text-white p-4 rounded-3xl shadow-xl shadow-blue-500/30"
           aria-labelledby="visibility-title"
         >
           <h3 id="visibility-title" className="text-lg font-semibold mb-2">
@@ -94,7 +94,7 @@ const DailyDetails = () => {
 
         {/* Sunrise & Sunset */}
         <article
-          className="bg-sky-500 w-1/2 flex flex-col justify-between items-center text-white p-4 rounded-3xl shadow-xl shadow-blue-500/30"
+          className="bg-sky-500 md:h-48 md:w-1/2 flex flex-col justify-between items-center text-white p-4 rounded-3xl shadow-xl shadow-blue-500/30"
           aria-labelledby="sunrise-sunset-title"
         >
           <h3 id="sunrise-sunset-title" className="text-md font-semibold mb-2">

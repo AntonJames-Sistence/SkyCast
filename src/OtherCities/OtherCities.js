@@ -17,8 +17,8 @@ const OtherCities = () => {
   if (loading || !otherCities || otherCities.length === 0) {
     // Skeleton structure for shimmer effect while loading
     return (
-      <div className="p-2 w-1/6" role="status" aria-live="polite">
-        <h2 className="text-2xl font-bold text-white mb-4">Other Cities</h2>
+      <section className="p-2 lg:w-1/6" role="status" aria-live="polite">
+        <h2 className="text-2xl font-bold text-white mb-4">Other Cities:</h2>
         <div className="flex flex-col gap-4">
           {[...Array(4)].map((_, index) => (
             <div
@@ -35,16 +35,16 @@ const OtherCities = () => {
             </div>
           ))}
         </div>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="p-2 w-1/6">
-      <h2 className="text-2xl font-bold text-white mb-4">Other Cities</h2>
+    <section className="p-2 mt-8 md:mt-0 w-3/4 self-center md:self-start lg:w-1/6">
+      <h2 className="text-2xl font-bold text-white mb-4">Other Cities:</h2>
       <div className="flex flex-col gap-4">
         {otherCities.map((city, index) => (
-          <div
+          <article
             key={index}
             className="p-4 flex justify-between items-center bg-blue-300 text-white rounded-3xl shadow-xl shadow-blue-300/30"
             aria-label={`Weather in ${city.name}`}
@@ -69,10 +69,10 @@ const OtherCities = () => {
                   aria-hidden="true"
                 />
               </div>
-          </div>
+          </article>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

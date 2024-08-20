@@ -11,7 +11,7 @@ const WeatherWidgetTile = ({ weatherData, isOpen, onClick, idx }) => {
   return (
     <div className="flex flex-col cursor-pointer" onClick={onClick}>
       {isOpen ? (
-        <div className="flex flex-col w-80 rounded-3xl shadow-xl shadow-blue-500/40">
+        <article className="flex flex-col md:w-80 rounded-3xl shadow-xl shadow-blue-500/40">
           <div className="flex justify-between w-full bg-sky-500 p-4 rounded-t-3xl font-semibold">
             <p>{day}</p>
             <p>{isCityDataAvailable ? time : ''}</p>
@@ -61,19 +61,19 @@ const WeatherWidgetTile = ({ weatherData, isOpen, onClick, idx }) => {
               </div>
             </div>
           </div>
-        </div>
+        </article>
       ) : (
-        <div className="flex flex-col w-full h-full text-white rounded-3xl shadow-xl shadow-blue-300/30">
-          <div className="bg-blue-400 border-b rounded-t-3xl border-gray-600 w-full text-center p-4 font-semibold">
+        <article className="flex md:flex-col w-full h-full text-white rounded-3xl shadow-xl shadow-blue-300/30">
+          <div className="bg-blue-400 md:border-b rounded-l-3xl md:rounded-none md:rounded-t-3xl border-gray-600 w-full text-center p-4 font-semibold">
             {day.slice(0, 3).toUpperCase()}
           </div>
-          <div className="bg-blue-300 rounded-b-3xl flex flex-col h-full justify-between p-4">
+          <div className="bg-blue-300 rounded-r-3xl md:rounded-none md:rounded-b-3xl flex flex-col h-full justify-between p-4">
             <img src={weatherIconUrl} className="h-18" alt="weather icon" />
             <p className="self-center text-2xl font-bold">
               {CtoF(weatherData.temp).toFixed(0)} &#8457;
             </p>
           </div>
-        </div>
+        </article>
       )}
     </div>
   );

@@ -21,7 +21,7 @@ const WeatherWidget = () => {
   if (loading || !weatherData) {
     // Skeleton structure for shimmer effect while loading
     return (
-      <div className="flex gap-8 pb-8 justify-between">
+      <section className="flex gap-8 pb-8 justify-between">
         {[...Array(5)].map((_, index) => (
           <div key={index} className="w-40 h-56 rounded-3xl bg-sky-400 animate-pulse flex flex-col justify-between shadow-xl">
             <div className="bg-sky-500 h-16 w-full rounded-t-3xl"></div>
@@ -35,12 +35,12 @@ const WeatherWidget = () => {
             <div className="h-16 bg-sky-500 w-full rounded-b-3xl"></div>
           </div>
         ))}
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="flex gap-8 pb-8">
+    <section className="flex flex-col md:flex-row gap-8 pb-8">
       {weatherData.map((daily, index) => (
         <WeatherWidgetTile
           key={index}
@@ -50,7 +50,7 @@ const WeatherWidget = () => {
           idx={index}
         />
       ))}
-    </div>
+    </section>
   );
 };
 
