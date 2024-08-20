@@ -11,7 +11,7 @@ const OtherCities = () => {
   };
 
   const handleKeyDown = (event, cityName) => {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === "Enter" || event.key === " ") {
       handleFetchForecast(cityName);
     }
   };
@@ -72,15 +72,16 @@ const OtherCities = () => {
             className="p-4 flex justify-between items-center bg-blue-300 text-white rounded-3xl shadow-xl shadow-blue-300/30 hover:shadow-blue-300/60"
             aria-label={`Weather in ${city.name}`}
             onClick={() => handleFetchForecast(city.name)}
-                onKeyDown={(event) => handleKeyDown(event, city.name)}
-                role="button"
-                tabIndex="0"
-                aria-pressed="false"
+            onKeyDown={(event) => handleKeyDown(event, city.name)}
+            role="button"
+            tabIndex="0"
+            aria-pressed="false"
           >
             <div>
               <h3
                 className="text-lg font-semibold text-gray-700 cursor-pointer"
                 id={`city-name-${index}`}
+                role="region"
               >
                 {city.name}
               </h3>
