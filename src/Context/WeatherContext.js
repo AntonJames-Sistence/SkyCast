@@ -134,6 +134,7 @@ export const WeatherProvider = ({ children }) => {
 
     const cities = ["New York", "London", "Tokyo", "Kyiv"];
     fetchOtherCitiesWeather(cities);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
