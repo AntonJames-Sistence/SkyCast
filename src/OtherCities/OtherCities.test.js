@@ -19,31 +19,6 @@ beforeAll(() => {
   };
 });
 
-// Mock the global fetch API, to test failing call
-beforeEach(() => {
-  jest.spyOn(global, "fetch").mockImplementation((url) => {
-    if (url.includes("weather")) {
-      return Promise.resolve({
-        ok: true,
-        json: () =>
-        Promise.resolve({
-            name: "New York",
-            main: {
-              temp: 20,
-            },
-            weather: [
-              {
-                description: "clear sky",
-                icon: "01d",
-              },
-            ],
-          }),
-      });
-    }
-    return Promise.reject(new Error("Failed to fetch data"));
-  });
-});
-
 afterEach(() => {
   jest.restoreAllMocks();
 });
@@ -67,18 +42,18 @@ test("displays error message when API call fails", async () => {
 });
 
 test("displays skeleton structure while loading", async () => {
-    jest.spyOn(global, "fetch").mockImplementationOnce(
-        () =>
-          new Promise((resolve) => {
-            // Simulate a delay to trigger the loading state
-            setTimeout(() => {
-              resolve({
-                ok: true,
-                json: () => Promise.resolve([]),
-              });
-            }, 1000);
-          })
-      );
+  jest.spyOn(global, "fetch").mockImplementationOnce(
+    () =>
+      new Promise((resolve) => {
+        // Simulate a delay to trigger the loading state
+        setTimeout(() => {
+          resolve({
+            ok: true,
+            json: () => Promise.resolve([]),
+          });
+        }, 1000);
+      })
+  );
 
   render(
     <WeatherProvider>
@@ -88,7 +63,7 @@ test("displays skeleton structure while loading", async () => {
 
   await waitFor(() => {
     expect(screen.getByText(/Other Cities/i)).toBeInTheDocument();
-    
+
     const loadingStatus = screen.getByRole("status", { hidden: true });
     expect(loadingStatus).toBeInTheDocument();
     expect(loadingStatus).toHaveAttribute("aria-live", "polite");
@@ -96,6 +71,26 @@ test("displays skeleton structure while loading", async () => {
 });
 
 test("displays weather data correctly", async () => {
+  jest.spyOn(global, "fetch").mockImplementationOnce(
+    () =>
+      Promise.resolve({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            name: "New York",
+            main: {
+              temp: 20,
+            },
+            weather: [
+              {
+                description: "clear sky",
+                icon: "01d",
+              },
+            ],
+          }),
+      })
+  );
+
   render(
     <WeatherProvider>
       <OtherCities />
@@ -113,14 +108,14 @@ test("displays weather data correctly", async () => {
 });
 
 test("OtherCities component should have proper roles and aria attributes", async () => {
-    render(
-      <WeatherProvider>
-        <OtherCities />
-      </WeatherProvider>
-    );
-  
-    await waitFor(() => {
-        const weatherRegions = screen.getAllByRole("region");
-        expect(weatherRegions.length).toBeGreaterThan(0);
-})
+  render(
+    <WeatherProvider>
+      <OtherCities />
+    </WeatherProvider>
+  );
+
+  await waitFor(() => {
+    const weatherRegions = screen.getAllByRole("region");
+    expect(weatherRegions.length).toBeGreaterThan(0);
   });
+});

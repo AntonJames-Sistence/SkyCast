@@ -3,9 +3,12 @@ import { useWeather } from "../Context/WeatherContext";
 
 const DailyDetails = () => {
   const { cityData, loading, error } = useWeather();
-  
+
+  // error is handled by main component
+  if (error) return null;
+
   if (loading || !cityData) {
-   // Skeleton structure for shimmer effect while loading
+    // Skeleton structure for shimmer effect while loading
     return (
       <div>
         <div className="text-white font-semibold text-2xl mb-4">
@@ -42,10 +45,6 @@ const DailyDetails = () => {
       </div>
     );
   }
-
-  // error is handled by main component
-  if (error) return null
-  
 
   const { main, wind, visibility, sys } = cityData;
   const { sunrise, sunset } = sys;
