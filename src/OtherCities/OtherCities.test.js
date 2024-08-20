@@ -67,6 +67,19 @@ test("displays error message when API call fails", async () => {
 });
 
 test("displays skeleton structure while loading", async () => {
+    jest.spyOn(global, "fetch").mockImplementationOnce(
+        () =>
+          new Promise((resolve) => {
+            // Simulate a delay to trigger the loading state
+            setTimeout(() => {
+              resolve({
+                ok: true,
+                json: () => Promise.resolve([]),
+              });
+            }, 1000);
+          })
+      );
+
   render(
     <WeatherProvider>
       <OtherCities />
@@ -74,11 +87,11 @@ test("displays skeleton structure while loading", async () => {
   );
 
   await waitFor(() => {
-    expect(screen.getByText("Other Cities")).toBeInTheDocument();
-    const skeletonElements = screen.getAllByText((content, element) =>
-      element.className.includes("animate-pulse")
-    );
-    expect(skeletonElements).toHaveLength(4);
+    expect(screen.getByText(/Other Cities/i)).toBeInTheDocument();
+    
+    const loadingStatus = screen.getByRole("status", { hidden: true });
+    expect(loadingStatus).toBeInTheDocument();
+    expect(loadingStatus).toHaveAttribute("aria-live", "polite");
   });
 });
 
@@ -89,7 +102,6 @@ test("displays weather data correctly", async () => {
     </WeatherProvider>
   );
 
-  // Check if the city name and temperature are displayed correctly
   await waitFor(() => {
     const cityName = screen.getAllByText(/New York/i);
     expect(cityName.length).toBeGreaterThan(0);
@@ -99,3 +111,16 @@ test("displays weather data correctly", async () => {
     expect(desc.length).toBeGreaterThan(0);
   });
 });
+
+test("OtherCities component should have proper roles and aria attributes", async () => {
+    render(
+      <WeatherProvider>
+        <OtherCities />
+      </WeatherProvider>
+    );
+  
+    await waitFor(() => {
+        const weatherRegions = screen.getAllByRole("region");
+        expect(weatherRegions.length).toBeGreaterThan(0);
+})
+  });

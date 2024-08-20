@@ -17,7 +17,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="flex w-full justify-between pb-8">
+    <div className="flex flex-col md:flex-row w-full justify-between pb-8">
       <div className="flex items-center text-white font-bold">
         <FiMapPin className="mr-2 text-2xl" />
         <span className="text-2xl">{cityData ? `${capFLetter(cityData.name)}` : "Current Location"}</span>
