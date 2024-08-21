@@ -33,7 +33,7 @@ export const WeatherProvider = ({ children }) => {
 
   const fetchWeatherData = async ({ cityName, lat, lon }) => {
     setLoading(true);
-    console.log('fetching')
+    
     try {
       // Required cityName for multiple components
       if (!cityName && lat && lon) {
@@ -121,19 +121,21 @@ export const WeatherProvider = ({ children }) => {
           debounce(fetchWeatherData({ lat: latitude, lon: longitude }));
         },
         (error) => {
-          console.error("Error getting geolocation:", error);
+          // console.error("Error getting geolocation:", error);
+          setError("Geolocation is disabled. Please enter the city name in the search bar above.");
         }
       );
     } else {
-      console.error("Geolocation is not supported");
+      // console.error("Geolocation is not supported");
+      setError("Geolocation is not supported. Please enter the city name in the search bar above.");
     }
   };
 
   useEffect(() => {
-    debounce(fetchGeoLocationWeather())
+    fetchGeoLocationWeather();
 
     const cities = ["New York", "London", "Tokyo", "Kyiv"];
-    debounce(fetchOtherCitiesWeather(cities));
+    fetchOtherCitiesWeather(cities);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

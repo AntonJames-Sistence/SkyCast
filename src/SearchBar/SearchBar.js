@@ -8,7 +8,7 @@ const SearchBar = () => {
   const [city, setCity] = useState("");
   const { fetchWeatherData, cityData } = useWeather();
 
-  const debouncedFetchWeatherData = debounce(({ cityName }) => fetchWeatherData({ cityName }), 200);
+  const debouncedFetchWeatherData = debounce(({ cityName }) => fetchWeatherData({ cityName }), 500);
 
   const handleSearch = (e) => {
     e.preventDefault();

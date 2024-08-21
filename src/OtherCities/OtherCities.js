@@ -6,8 +6,13 @@ const OtherCities = () => {
   const { otherCities, loading, otherCitiesError, fetchWeatherData } =
     useWeather();
 
+  const debouncedFetchWeatherData = debounce(
+    ({ cityName }) => fetchWeatherData({ cityName }),
+    500
+  );
+
   const handleFetchForecast = (cityName) => {
-    debounce(fetchWeatherData({ cityName }))
+    debouncedFetchWeatherData({ cityName });
   };
 
   const handleKeyDown = (event, cityName) => {
